@@ -1,0 +1,37 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "pyro-wiki-api-prod",
+  "main": "../../workers/api/src/index.ts",
+  "compatibility_date": "2026-07-19",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "vars": {
+    "PYRO_AUTH_MODE": "feishu",
+    "PYRO_ENVIRONMENT": "production",
+    "PYRO_GITHUB_REPOSITORY_URL": "https://github.com/zhou-ee/PYRo-Wiki",
+    "PYRO_GITHUB_BRANCH": "main",
+    "PYRO_AUTH_CALLBACK_URL": "https://pyro-wiki-api.luckyy.ccwu.cc/auth/feishu/callback",
+    "FEISHU_TENANT_RESTRICTION": "internal",
+    "PYRO_PUBLISHER_IDS": "4b59a5c5-0f4e-40bc-8929-3a9e976dc693,ou_87a7b046c040191ca109afabb2b1f707"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "pyro-wiki-prod",
+      "database_id": "a23015be-0285-429c-a420-77b7a395e8a9",
+      "migrations_dir": "../../migrations"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      { "name": "COLLABORATION_ROOM", "class_name": "CollaborationRoom" },
+      { "name": "WORKSPACE_ROOM", "class_name": "WorkspaceRoom" },
+      { "name": "REQUEST_QUOTA", "class_name": "RequestQuota" }
+    ]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["CollaborationRoom"] },
+    { "tag": "v2", "new_sqlite_classes": ["RequestQuota"] },
+    { "tag": "v3", "new_sqlite_classes": ["WorkspaceRoom"] }
+  ]
+}

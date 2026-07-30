@@ -1,0 +1,29 @@
+{
+  "name": "pyro-wiki-platform",
+  "private": true,
+  "scripts": {
+    "typecheck": "npm --prefix apps/vscode-extension run typecheck && npm --prefix workers/api run typecheck",
+    "build": "npm --prefix apps/vscode-extension run compile && npm --prefix workers/api run build",
+    "test": "npm --prefix apps/vscode-extension run test && npm --prefix workers/api run test",
+    "smoke:production": "node scripts/smoke-production.mjs",
+    "smoke:local-api": "node scripts/smoke-local-api.mjs",
+    "smoke:local-collaboration": "node scripts/smoke-local-collaboration.mjs",
+    "smoke:local-auth": "node scripts/smoke-local-auth.mjs",
+    "check:production-d1": "node scripts/check-production-d1.mjs",
+    "smoke:local-repository": "node scripts/smoke-local-repository.mjs",
+    "smoke:local-quota": "node scripts/smoke-local-quota.mjs",
+    "smoke:local-cloud-cache": "node scripts/smoke-local-cloud-cache.mjs",
+    "smoke:local-incremental-collaboration": "node scripts/smoke-local-incremental-collaboration.mjs",
+    "smoke:local-realtime-collaboration": "node scripts/smoke-local-realtime-collaboration.mjs",
+    "smoke:local-awareness": "node scripts/smoke-local-awareness.mjs",
+    "smoke:local-reconnect": "node scripts/smoke-local-reconnect.mjs",
+    "smoke:local-offline-sync": "node scripts/smoke-local-offline-sync.mjs",
+    "smoke:local-workspace-collaboration": "node scripts/smoke-local-workspace-collaboration.mjs",
+    "smoke:local-offline-workspace": "node scripts/smoke-local-workspace-collaboration.mjs",
+    "smoke:local-workspace-conflict": "node scripts/smoke-local-workspace-collaboration.mjs",
+    "smoke:local-provenance": "node scripts/smoke-local-workspace-collaboration.mjs",
+    "smoke:local-d1-budget": "node scripts/smoke-local-quota.mjs",
+    "smoke:local-workspace-publish": "node scripts/smoke-local-workspace-publish.mjs",
+    "smoke:local-workspace-adversarial": "node scripts/smoke-local-workspace-adversarial.mjs"
+  }
+}

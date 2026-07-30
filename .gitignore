@@ -1,0 +1,14 @@
+﻿node_modules/
+**/node_modules/
+.wrangler/
+**/.wrangler/
+dist/
+**/dist/
+**/dist-*/
+*.vsix
+*.log
+*.pem
+*.key
+.env
+.env.*
+*.tmp

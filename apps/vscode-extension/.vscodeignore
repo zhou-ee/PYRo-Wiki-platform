@@ -1,0 +1,9 @@
+node_modules/
+src/
+test/
+build.mjs
+tsconfig.json
+dist/*.map
+*.vsix
+README.md
+scripts-install-local.mjs

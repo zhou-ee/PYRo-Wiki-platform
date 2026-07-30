@@ -1,0 +1,598 @@
+{
+  "name": "pyro-wiki-vscode-extension",
+  "displayName": "PYRo Wiki",
+  "description": "Shared PYRo Wiki workspace, Worker-proxied repository sync, safe Markdown preview, cloud collaboration, and Feishu sync.",
+  "version": "0.2.4",
+  "publisher": "pyro-wiki",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Markdown"
+  ],
+  "activationEvents": [
+    "onLanguage:markdown",
+    "onCommand:pyroWiki.initializeWorkspace",
+    "onCommand:pyroWiki.pullSharedWiki",
+    "onCommand:pyroWiki.selectWikiRoot",
+    "onCommand:pyroWiki.openPreview",
+    "onCommand:pyroWiki.openMarkdownWorkspace",
+    "onView:pyroWiki.documents",
+    "onWebviewPanel:pyroWikiPreview",
+    "onCommand:pyroWiki.signIn",
+    "onCommand:pyroWiki.signOut",
+    "onCommand:pyroWiki.refreshCloudDocuments",
+    "onCommand:pyroWiki.joinCollaboration",
+    "onCommand:pyroWiki.leaveCollaboration",
+    "onView:pyroWiki.cloudDocuments",
+    "onView:pyroWiki.collaboration",
+    "onUri",
+    "onCommand:pyroWiki.viewCloudRevisions",
+    "onCommand:pyroWiki.compareCloudDocument",
+    "onCommand:pyroWiki.completeFeishuLogin",
+    "onCommand:pyroWiki.saveDraft",
+    "onCommand:pyroWiki.viewRevisions",
+    "onCommand:pyroWiki.retrySyncQueue",
+    "onCommand:pyroWiki.pullCloudDocument",
+    "onCommand:pyroWiki.pushCloudDocument",
+    "onCommand:pyroWiki.searchCloudDocuments",
+    "onCommand:pyroWiki.submitPublishRequest",
+    "onCommand:pyroWiki.viewPublishRequests",
+    "onCommand:pyroWiki.approveAndPublish",
+    "onCommand:pyroWiki.rejectPublishRequest",
+    "onCommand:pyroWiki.retryPublishRequest",
+    "onCommand:pyroWiki.createWorkspacePublishBatch",
+    "onCommand:pyroWiki.approveWorkspacePublishBatch",
+    "onCommand:pyroWiki.rejectWorkspacePublishBatch",
+    "onCommand:pyroWiki.createMarkdownDocument",
+    "onCommand:pyroWiki.deleteMarkdownDocument",
+    "onCommand:pyroWiki.renameMarkdownDocument"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "pyroWiki.selectWikiRoot",
+        "title": "PYRo Wiki: Select Wiki Root",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "pyroWiki.initializeWorkspace",
+        "title": "PYRo Wiki: Initialize Wiki Workspace",
+        "icon": "$(new-file)"
+      },
+      {
+        "command": "pyroWiki.pullSharedWiki",
+        "title": "PYRo Wiki: Sync Shared Wiki through Worker",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "pyroWiki.openPreview",
+        "title": "PYRo Wiki: Open Preview",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "pyroWiki.pullDocument",
+        "title": "PYRo Wiki: Pull Document",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "pyroWiki.pushDocument",
+        "title": "PYRo Wiki: Push Document",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "pyroWiki.resolveConflict",
+        "title": "PYRo Wiki: Resolve Conflict",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "pyroWiki.joinCollaboration",
+        "title": "PYRo Wiki: Join Collaboration",
+        "icon": "$(broadcast)"
+      },
+      {
+        "command": "pyroWiki.openSourceAndPreview",
+        "title": "PYRo Wiki: Open Source + Preview",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "pyroWiki.refreshPreview",
+        "title": "PYRo Wiki: Refresh Preview",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "pyroWiki.pullRepository",
+        "title": "PYRo Wiki: Pull Repository",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "pyroWiki.repositoryStatus",
+        "title": "PYRo Wiki: Show Repository Status",
+        "icon": "$(info)"
+      },
+      {
+        "command": "pyroWiki.openMarkdownWorkspace",
+        "title": "PYRo Wiki: Show Markdown Workspace",
+        "icon": "$(book)"
+      },
+      {
+        "command": "pyroWiki.searchMarkdownDocuments",
+        "title": "PYRo Wiki: Search Markdown Documents",
+        "icon": "$(search)"
+      },
+      {
+        "command": "pyroWiki.createMarkdownDocument",
+        "title": "PYRo Wiki: New Markdown Document",
+        "icon": "$(new-file)"
+      },
+      {
+        "command": "pyroWiki.deleteMarkdownDocument",
+        "title": "PYRo Wiki: Delete Markdown Document",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "pyroWiki.renameMarkdownDocument",
+        "title": "PYRo Wiki: Rename Markdown Document",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "pyroWiki.refreshDocuments",
+        "title": "PYRo Wiki: Refresh Markdown Documents",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "pyroWiki.signIn",
+        "title": "PYRo Wiki: Sign in with Feishu",
+        "icon": "$(sign-in)"
+      },
+      {
+        "command": "pyroWiki.signOut",
+        "title": "PYRo Wiki: Sign out",
+        "icon": "$(sign-out)"
+      },
+      {
+        "command": "pyroWiki.refreshCloudDocuments",
+        "title": "PYRo Wiki: Refresh Cloud Documents",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "pyroWiki.leaveCollaboration",
+        "title": "PYRo Wiki: Leave Collaboration",
+        "icon": "$(debug-disconnect)"
+      },
+      {
+        "command": "pyroWiki.viewCloudRevisions",
+        "title": "PYRo Wiki: View Cloud Revisions",
+        "icon": "$(history)"
+      },
+      {
+        "command": "pyroWiki.compareCloudDocument",
+        "title": "PYRo Wiki: Compare Cloud Document",
+        "icon": "$(compare-changes)"
+      },
+      {
+        "command": "pyroWiki.completeFeishuLogin",
+        "title": "PYRo Wiki: Complete Feishu Login",
+        "icon": "$(key)"
+      },
+      {
+        "command": "pyroWiki.viewRevisions",
+        "title": "PYRo Wiki: View Current Revisions",
+        "icon": "$(history)"
+      },
+      {
+        "command": "pyroWiki.retrySyncQueue",
+        "title": "PYRo Wiki: Retry Sync Queue",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "pyroWiki.pullCloudDocument",
+        "title": "PYRo Wiki: Pull Cloud Document",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "pyroWiki.pushCloudDocument",
+        "title": "PYRo Wiki: Push Cloud Document",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "pyroWiki.searchCloudDocuments",
+        "title": "PYRo Wiki: Search Cloud Documents",
+        "icon": "$(search)"
+      },
+      {
+        "command": "pyroWiki.createWorkspacePublishBatch",
+        "title": "PYRo Wiki: Create Workspace Publish Batch",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "pyroWiki.approveWorkspacePublishBatch",
+        "title": "PYRo Wiki: Approve Workspace Publish Batch",
+        "icon": "$(verified)"
+      },
+      {
+        "command": "pyroWiki.rejectWorkspacePublishBatch",
+        "title": "PYRo Wiki: Reject Workspace Publish Batch",
+        "icon": "$(close)"
+      },
+      {
+        "command": "pyroWiki.runProductionAdversarialTest",
+        "title": "PYRo Wiki: Run Production Adversarial Test",
+        "icon": "$(beaker)"
+      }
+    ],
+    "configuration": {
+      "title": "PYRo Wiki",
+      "properties": {
+        "pyroWiki.wikiRoot": {
+          "type": "string",
+          "default": "",
+          "description": "Wiki root relative to the workspace, or an absolute path."
+        },
+        "pyroWiki.enablePreview": {
+          "type": "boolean",
+          "default": true
+        },
+        "pyroWiki.enableSlashCommands": {
+          "type": "boolean",
+          "default": true
+        },
+        "pyroWiki.enableCloudSync": {
+          "type": "boolean",
+          "default": true
+        },
+        "pyroWiki.enableCollaboration": {
+          "type": "boolean",
+          "default": true
+        },
+        "pyroWiki.apiBaseUrl": {
+          "type": "string",
+          "default": "https://pyro-wiki-api.luckyy.ccwu.cc",
+          "description": "PYRo Wiki Worker API base URL."
+        },
+        "pyroWiki.authorCacheTtlMinutes": {
+          "type": "number",
+          "default": 60
+        },
+        "pyroWiki.lockPreviewLayout": {
+          "type": "boolean",
+          "default": true,
+          "description": "Keep Wiki source Markdown in the left editor column and PYRo preview in the right column."
+        },
+        "pyroWiki.followActiveMarkdown": {
+          "type": "boolean",
+          "default": true,
+          "description": "Update the PYRo preview when a different Wiki Markdown file becomes active."
+        },
+        "pyroWiki.syncUnsavedPreview": {
+          "type": "boolean",
+          "default": true,
+          "description": "Save dirty Markdown documents before reloading the full VitePress preview so source and preview cannot diverge."
+        },
+        "pyroWiki.runAdversarialOnActivation": {
+          "type": "boolean",
+          "default": false,
+          "description": "Run one production adversarial test in an isolated workspace when this workspace activates. Disable after completion."
+        },
+        "pyroWiki.automationApproval": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow Codex-authorized workspace approval automation without interactive confirmation."
+        }
+      }
+    },
+    "menus": {
+      "editor/title": [
+        {
+          "command": "pyroWiki.openSourceAndPreview",
+          "when": "editorLangId == markdown && pyroWiki.isWikiDocument",
+          "group": "navigation@1"
+        },
+        {
+          "command": "pyroWiki.openPreview",
+          "when": "editorLangId == markdown && pyroWiki.isWikiDocument",
+          "group": "navigation@2"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "pyroWiki.createMarkdownDocument",
+          "when": "view == pyroWiki.documents",
+          "group": "navigation@1"
+        },
+        {
+          "command": "pyroWiki.openMarkdownWorkspace",
+          "when": "view == pyroWiki.documents",
+          "group": "navigation@2"
+        },
+        {
+          "command": "pyroWiki.refreshDocuments",
+          "when": "view == pyroWiki.documents",
+          "group": "navigation@2"
+        },
+        {
+          "command": "pyroWiki.searchMarkdownDocuments",
+          "when": "view == pyroWiki.documents",
+          "group": "navigation@3"
+        },
+        {
+          "command": "pyroWiki.signIn",
+          "when": "view == pyroWiki.cloudDocuments && !pyroWiki.signedIn",
+          "group": "navigation@1"
+        },
+        {
+          "command": "pyroWiki.signOut",
+          "when": "view == pyroWiki.cloudDocuments && pyroWiki.signedIn",
+          "group": "navigation@1"
+        },
+        {
+          "command": "pyroWiki.refreshCloudDocuments",
+          "when": "view == pyroWiki.cloudDocuments && pyroWiki.signedIn",
+          "group": "navigation@2"
+        },
+        {
+          "command": "pyroWiki.searchCloudDocuments",
+          "when": "view == pyroWiki.cloudDocuments && pyroWiki.signedIn",
+          "group": "navigation@3"
+        }
+      ],
+      "view/item": [
+        {
+          "command": "pyroWiki.createMarkdownDocument",
+          "when": "view == pyroWiki.documents && (viewItem == pyroWikiMarkdownDirectory || viewItem == pyroWikiMarkdownFile)",
+          "group": "inline@1"
+        },
+        {
+          "command": "pyroWiki.renameMarkdownDocument",
+          "when": "view == pyroWiki.documents && viewItem == pyroWikiMarkdownFile",
+          "group": "inline@2"
+        },
+        {
+          "command": "pyroWiki.deleteMarkdownDocument",
+          "when": "view == pyroWiki.documents && viewItem == pyroWikiMarkdownFile",
+          "group": "inline@3"
+        },
+        {
+          "command": "pyroWiki.viewCloudRevisions",
+          "when": "view == pyroWiki.cloudDocuments && viewItem == pyroWiki.cloudDocument",
+          "group": "inline@1"
+        },
+        {
+          "command": "pyroWiki.compareCloudDocument",
+          "when": "view == pyroWiki.cloudDocuments && viewItem == pyroWiki.cloudDocument",
+          "group": "inline@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "pyroWiki.initializeWorkspace",
+          "when": "true"
+        },
+        {
+          "command": "pyroWiki.pullSharedWiki",
+          "when": "true"
+        },
+        {
+          "command": "pyroWiki.openPreview",
+          "when": "pyroWiki.isWikiDocument"
+        },
+        {
+          "command": "pyroWiki.signIn",
+          "when": "!pyroWiki.signedIn"
+        },
+        {
+          "command": "pyroWiki.signOut",
+          "when": "pyroWiki.signedIn"
+        },
+        {
+          "command": "pyroWiki.completeFeishuLogin",
+          "when": "!pyroWiki.signedIn"
+        },
+        {
+          "command": "pyroWiki.submitPublishRequest",
+          "when": "pyroWiki.signedIn && pyroWiki.isWikiDocument"
+        },
+        {
+          "command": "pyroWiki.viewPublishRequests",
+          "when": "pyroWiki.signedIn && pyroWiki.isWikiDocument"
+        },
+        {
+          "command": "pyroWiki.approveAndPublish",
+          "when": "pyroWiki.signedIn && pyroWiki.canPublish && pyroWiki.isWikiDocument"
+        },
+        {
+          "command": "pyroWiki.rejectPublishRequest",
+          "when": "pyroWiki.signedIn && pyroWiki.canPublish && pyroWiki.isWikiDocument"
+        },
+        {
+          "command": "pyroWiki.selectWikiRoot",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.pullDocument",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.pushDocument",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.resolveConflict",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.joinCollaboration",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.leaveCollaboration",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.openSourceAndPreview",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.refreshPreview",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.pullRepository",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.repositoryStatus",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.openMarkdownWorkspace",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.searchMarkdownDocuments",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.refreshDocuments",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.refreshCloudDocuments",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.viewCloudRevisions",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.compareCloudDocument",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.saveDraft",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.viewRevisions",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.retrySyncQueue",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.pullCloudDocument",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.pushCloudDocument",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.searchCloudDocuments",
+          "when": "false"
+        },
+        {
+          "command": "pyroWiki.retryPublishRequest",
+          "when": "pyroWiki.signedIn && pyroWiki.canPublish && pyroWiki.isWikiDocument"
+        },
+        {
+          "command": "pyroWiki.createMarkdownDocument",
+          "when": "true"
+        },
+        {
+          "command": "pyroWiki.deleteMarkdownDocument",
+          "when": "true"
+        },
+        {
+          "command": "pyroWiki.renameMarkdownDocument",
+          "when": "true"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "pyroWiki.createMarkdownDocument",
+          "when": "view == pyroWiki.documents && (viewItem == pyroWikiMarkdownDirectory || viewItem == pyroWikiMarkdownFile)",
+          "group": "inline@1"
+        },
+        {
+          "command": "pyroWiki.renameMarkdownDocument",
+          "when": "view == pyroWiki.documents && viewItem == pyroWikiMarkdownFile",
+          "group": "inline@2"
+        },
+        {
+          "command": "pyroWiki.deleteMarkdownDocument",
+          "when": "view == pyroWiki.documents && viewItem == pyroWikiMarkdownFile",
+          "group": "inline@3"
+        }
+      ]
+    },
+    "markdown.markdownItPlugins": true,
+    "views": {
+      "pyroWiki": [
+        {
+          "id": "pyroWiki.documents",
+          "name": "Markdown Documents",
+          "contextualTitle": "PYRo Wiki Markdown documents",
+          "icon": "$(book)"
+        },
+        {
+          "id": "pyroWiki.cloudDocuments",
+          "name": "Cloud Documents",
+          "contextualTitle": "PYRo Wiki cloud documents",
+          "icon": "$(cloud)"
+        },
+        {
+          "id": "pyroWiki.collaboration",
+          "name": "Collaboration",
+          "contextualTitle": "PYRo Wiki collaboration",
+          "icon": "$(broadcast)"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "pyroWiki",
+          "title": "PYRo Wiki",
+          "icon": "./media/pyro-wiki.svg"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "pyroWiki.documents",
+        "contents": "PYRo Wiki Markdown workspace\n\n[New Markdown Document](command:pyroWiki.createMarkdownDocument)  [Show Markdown Workspace](command:pyroWiki.openMarkdownWorkspace)  [Refresh](command:pyroWiki.refreshDocuments)"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "node build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "package": "npm run compile && vsce package --no-dependencies",
+    "install-local": "npm run package && node scripts-install-local.mjs"
+  },
+  "dependencies": {
+    "markdown-it": "^14.1.0",
+    "yjs": "^13.6.27",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^22.10.2",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.2",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "@types/ws": "^8.5.13"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhou-ee/PYRo-Wiki.git"
+  }
+}
